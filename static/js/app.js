@@ -4,6 +4,7 @@ d3.json("samples.json").then((importedData) => {
     console.log(importedData)
     var names = importedData.names;
     var samples = importedData.samples;
+    var metadata = importedData.metadata;
     // append sample names to list
     var list = d3.select("#selDataset");
     for (var i = 0; i < names.length; i++) {
@@ -43,8 +44,9 @@ d3.json("samples.json").then((importedData) => {
             orientation: "h"
         };
 
+
         // data
-        var chartData = [trace1];
+        var chartData1 = [trace1];
 
         // Apply the group bar mode to the layout
         var layout = {
@@ -58,6 +60,48 @@ d3.json("samples.json").then((importedData) => {
         };
 
         // Render the plot to the div tag with id "plot"
-        Plotly.newPlot("bar", chartData, layout)
+        Plotly.newPlot("bar", chartData1, layout)
+
+
+
+
+        // Trace2 for the sample Data
+        var trace2 = {
+            x: dataset[0].otu_ids,
+            y: parseFloat(dataset[0].sample_values),
+            text: dataset[0].otu_labels,
+            mode: "markers",
+            marker: {
+                // size:Math.sqrt(dataset[0].sample_values),
+                // size:2* math.max(dataset[0].sample_values)/(100**2),
+                size: dataset[0].sample_values,
+                color: dataset[0].otu_ids,
+                // showScale:True
+            }
+
+        };
+
+        // data
+        var chartData2 = [trace2];
+
+        // Apply the group bar mode to the layout
+        var layout = {
+            title: "Bacteria Cultures Per Sample",
+            margin: {
+                l: 100,
+                r: 100,
+                t: 100,
+                b: 100
+            }
+        }
+
+        // Render the plot to the div tag with id "plot"
+        Plotly.newPlot("bubble", chartData2, layout)
+        
+        var demoInfo = metadata.filter(metadata => metadata.id == chosenId);
+        var meta = d3.select("#sample-metadata").html("").append("ul");
+        Object.entries(demoInfo[0]).forEach(([key, value]) => {
+            var li=meta.append("li").text(`${key.toUpperCase()}:${value}`)
+        })
     }
-});
+})
