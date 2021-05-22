@@ -106,6 +106,22 @@ function buildPlot() {
             Object.entries(demoInfo[0]).forEach(([key, value]) => {
                 var li = meta.append("li").text(`${key.toUpperCase()}:${value}`)
             })
+
+            var data = [
+                {
+                    domain: { x: [0, 1], y: [0, 1] },
+                    value: demoInfo[0].wfreq,
+                    title: { text: "Scrubs per Week" },
+                    type: "indicator",
+                    mode: "gauge+number"
+                }
+            ];
+            // define plot layout
+            var layout = { width: 500, height: 500, margin: { t:0, b: 100, l: 0 } };
+            // plot the chart to a division tag with id "gauge"
+            Plotly.newPlot('gauge', data, layout);
+
+
         }
     })
 }
