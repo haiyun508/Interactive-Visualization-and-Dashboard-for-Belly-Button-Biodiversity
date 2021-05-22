@@ -7,4 +7,10 @@ li{
 };
 .panel-body{
     text-align: "left";
+};
+#sample-metadata{
+    text-align: "left";
+    padding-left:0px;
+    margin-left:0px
+
 }
