@@ -108,7 +108,7 @@ function buildPlot(chosenId) {
         Object.entries(demoInfo[0]).forEach(([key, value]) => {
             var para = meta.append("p").text(`${key.toUpperCase()}:${value}`)
         })
-
+ console.log(demoInfo[0])
         //  trace for washing frequency data
         var data = [
             {
@@ -125,9 +125,7 @@ function buildPlot(chosenId) {
         var layout = { width: 500, height: 500, margin: { t: 0, b: 100, l: 0 } };
         // plot the chart to a division tag with id "gauge"
         Plotly.newPlot('gauge', data, layout);
-
-
     })
 }
-// buildPlot()
+buildPlot()
 
